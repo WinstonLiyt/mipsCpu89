@@ -1,0 +1,188 @@
+#-----------------------------------------------------------
+# Vivado v2016.2 (64-bit)
+# SW Build 1577090 on Thu Jun  2 16:32:40 MDT 2016
+# IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
+# Start of session at: Mon Apr 01 13:38:18 2024
+# Process ID: 31996
+# Current directory: C:/Users/Liyt/Desktop/cpu_89
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent22816 C:\Users\Liyt\Desktop\cpu_89\cpu_89.xpr
+# Log file: C:/Users/Liyt/Desktop/cpu_89/vivado.log
+# Journal file: C:/Users/Liyt/Desktop/cpu_89\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/Liyt/Desktop/cpu_89/cpu_89.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+source docpu_top_tb.tcl
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+launch_simulation
+source docpu_top_tb.tcl
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+launch_runs synth_1 -jobs 2
+wait_on_run synth_1
+reset_run synth_1
+close_sim
+launch_simulation
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl
+close_sim
+launch_simulation
+source docpu_top_tb.tcl

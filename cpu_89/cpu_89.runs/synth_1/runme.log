@@ -1,0 +1,74 @@
+
+*** Running vivado
+    with args -log docpu_top_tb.vds -m64 -mode batch -messageDb vivado.pb -notrace -source docpu_top_tb.tcl
+
+
+****** Vivado v2016.2 (64-bit)
+  **** SW Build 1577090 on Thu Jun  2 16:32:40 MDT 2016
+  **** IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source docpu_top_tb.tcl -notrace
+Command: synth_design -top docpu_top_tb -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 20336 
+ERROR: [Synth 8-1751] cannot index into non-array reg2_mux [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:152]
+ERROR: [Synth 8-1751] cannot index into non-array reg2_mux [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:153]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:187]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:187]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:187]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:188]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:188]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:188]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:189]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:189]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:189]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:190]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:190]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:190]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:191]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:191]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:191]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:192]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:192]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:192]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:193]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:193]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:193]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:194]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:194]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:194]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:195]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:195]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:195]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:196]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:196]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:196]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:197]
+ERROR: [Synth 8-1751] cannot index into non-array reg1_not [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:197]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:267]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:267]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:269]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:269]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:271]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:271]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:273]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:273]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:299]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:299]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:311]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:311]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:395]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:398]
+ERROR: [Synth 8-1031] LO is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:484]
+ERROR: [Synth 8-1031] HI is not declared [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:487]
+INFO: [Synth 8-2350] module ex ignored due to previous errors [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:4]
+Failed to read verilog 'C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v'
+INFO: [Common 17-83] Releasing license: Synthesis
+3 Infos, 0 Warnings, 0 Critical Warnings and 51 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 01 21:02:29 2024...
