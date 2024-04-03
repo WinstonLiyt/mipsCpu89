@@ -1,31 +1,25 @@
-//@func   : 
-//@time   : 
-//@author :
-
 `include "defines.vh"
 `timescale 1ns / 1ps
 
 module hilo_reg(
 
-	input	wire					clk,
-	input wire						rst,
+	input clk,
+	input rst,
+
+	input wena,
+	input [`RegBus] regHI, regLO,
 	
-	input wire						we,
-	input wire[`RegBus]				regHI,
-	input wire[`RegBus]				regLO,
-	
-	output reg[`RegBus]           	HI_out,
-	output reg[`RegBus]           	LO_out
-	
+	output reg[`RegBus] HIOut, LOOut
 );
 
 	always @ (posedge clk) begin
 		if (rst == `RstEnable) begin
-					HI_out <= `ZeroWord;
-					LO_out <= `ZeroWord;
-		end else if((we == `WriteEnable)) begin
-					HI_out <= regHI;
-					LO_out <= regLO;
+			HIOut <= `ZeroWord;
+			LOOut <= `ZeroWord;
+		end
+		else if((wena == `WriteEnable)) begin
+			HIOut <= regHI;
+			LOOut <= regLO;
 		end
 	end
 

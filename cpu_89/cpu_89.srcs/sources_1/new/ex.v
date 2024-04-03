@@ -34,9 +34,9 @@ module ex(
  	input wb_cp0_wena,					// CP0寄存器写使能（WB）
 	input [4:0] wb_cp0_waddr,			// CP0寄存器写地址（WB）
 	input [`RegBus] wb_cp0_data,		// CP0寄存器写数据（WB）
-	input [`RegBus] cp0_reg_data_in,	// 读取CP0寄存器数据
+	input [`RegBus] cp0_dataIn,	// 读取CP0寄存器数据
 
-	output [`AluOpBus] aluc_out,					// aluc操作数
+	output [`AluOpBus] alucOut,					// aluc操作数
 	output [`RegBus] mem_addr_out,					// 访存地址
 	output [`RegBus] op2_out,						// 第二操作数
 	output [31:0] exceptionTypeOut,					// 异常类型
@@ -54,7 +54,7 @@ module ex(
 	output reg [`RegBus] wdata_out,		// 写数据	
 
 	output reg HILO_ena_out,						// HI/LO写使能
-	output reg [`RegBus] HI_out, LO_out,			// HI/LO寄存器输出
+	output reg [`RegBus] HIOut, LOOut,			// HI/LO寄存器输出
 	output reg [`DoubleRegBus] HILO_tmp_out,		// HI/LO临时值
 	output reg [1:0] cntOut,						// HI/LO计数器
 
@@ -63,7 +63,7 @@ module ex(
 	output reg DIV_ifSigned_out						// 是否为有符号除法
 );
 
- 	assign aluc_out = aluc;
+ 	assign alucOut = aluc;
 	assign op2_out = op2;
 	assign isInDelaySlotOut = isInDelaySlot;
 	assign curInstrAddrOut = curInstrAddr;
@@ -419,7 +419,7 @@ module ex(
 				`EXE_MOVZ_OP, `EXE_MOVN_OP: movRes <= op1;
 				`EXE_MFC0_OP: begin
 					cp0_reg_addr_out <= instr[15:11];
-					// movRes <= cp0_reg_data_in;
+					// movRes <= cp0_dataIn;
 					// if (mem_cp0_wena == `WriteEnable && mem_cp0_waddr == instr[15:11])
 					// 	movRes <= mem_cp0_data;
 					// else if (wb_cp0_wena == `WriteEnable && wb_cp0_waddr == instr[15:11])
@@ -427,7 +427,7 @@ module ex(
 					// 对于MFC0，直接读取CP0寄存器的数据，考虑阶段间转发
 					movRes <= (mem_cp0_wena && mem_cp0_waddr == instr[15:11]) ? mem_cp0_data :
 							(wb_cp0_wena && wb_cp0_waddr == instr[15:11]) ? wb_cp0_data :
-							cp0_reg_data_in;
+							cp0_dataIn;
 				end
 				default : begin
 				end
@@ -463,41 +463,41 @@ module ex(
 		case (1'b1)
 			(rst == `RstEnable): begin
 				HILO_ena_out <= `WriteDisable;
-				HI_out <= `ZeroWord;
-				LO_out <= `ZeroWord;
+				HIOut <= `ZeroWord;
+				LOOut <= `ZeroWord;
 			end
 			default: begin
 				case (aluc)
 					`EXE_MULT_OP, `EXE_MULTU_OP: begin
 						HILO_ena_out <= `WriteEnable;
-						HI_out <= mulRes[63:32];
-						LO_out <= mulRes[31:0];
+						HIOut <= mulRes[63:32];
+						LOOut <= mulRes[31:0];
 					end
 					`EXE_MADD_OP, `EXE_MADDU_OP,
 					`EXE_MSUB_OP, `EXE_MSUBU_OP: begin
 						HILO_ena_out <= `WriteEnable;
-						HI_out <= HILO_tmp1[63:32];
-						LO_out <= HILO_tmp1[31:0];
+						HIOut <= HILO_tmp1[63:32];
+						LOOut <= HILO_tmp1[31:0];
 					end
 					`EXE_DIV_OP, `EXE_DIVU_OP: begin
 						HILO_ena_out <= `WriteEnable;
-						HI_out <= DIVRes[63:32];
-						LO_out <= DIVRes[31:0];
+						HIOut <= DIVRes[63:32];
+						LOOut <= DIVRes[31:0];
 					end
 					`EXE_MTHI_OP: begin
 						HILO_ena_out <= `WriteEnable;
-						HI_out <= op1;
-						LO_out <= LO;
+						HIOut <= op1;
+						LOOut <= LO;
 					end
 					`EXE_MTLO_OP: begin
 						HILO_ena_out <= `WriteEnable;
-						HI_out <= HI;
-						LO_out <= op1;
+						HIOut <= HI;
+						LOOut <= op1;
 					end
 					default: begin
 						HILO_ena_out <= `WriteDisable;
-						HI_out <= `ZeroWord;
-						LO_out <= `ZeroWord;
+						HIOut <= `ZeroWord;
+						LOOut <= `ZeroWord;
 					end
 				endcase
 			end

@@ -15,9 +15,9 @@ module docpu_top(
     //
     wire rom_ce;
     wire mem_we_i;
-    wire[`RegBus] mem_addr_i;
-    wire[`RegBus] mem_data_i;
-    wire[`RegBus] mem_data_o;
+    wire[`RegBus] memAddrIn;
+    wire[`RegBus] memDataIn;
+    wire[`RegBus] memDataOut;
     wire[3:0] mem_sel_i; 
     wire mem_ce_i;   
     wire[5:0] int;
@@ -36,10 +36,10 @@ module docpu_top(
         .externalInterrupts(int),
 
         .ram_we_o(mem_we_i),
-        .ram_addr_o(mem_addr_i),
+        .ram_addr_o(memAddrIn),
         .ram_sel_o(mem_sel_i),
-        .ram_data_o(mem_data_i),
-        .ram_data_i(mem_data_o),
+        .ram_data_o(memDataIn),
+        .ram_data_i(memDataOut),
         .ram_ce_o(mem_ce_i),
         
         .timerInterruptOut(timer_int)
@@ -53,10 +53,10 @@ module docpu_top(
         .clk(clk),
         .ce(mem_ce_i),
         .we(mem_we_i),
-        .addr_in(mem_addr_i),
+        .addr_in(memAddrIn),
         .sel(mem_sel_i),
-        .data(mem_data_i),
-        .dataOut(mem_data_o),
+        .data(memDataIn),
+        .dataOut(memDataOut),
         .result(result)
     );
 

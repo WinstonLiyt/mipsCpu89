@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Tue Apr 02 00:17:42 2024'>
+<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Wed Apr 03 19:12:01 2024'>
 <section name="__ROOT__" level="0" order="1" description="">
  <section name="software_version_and_target_device" level="1" order="1" description="">
   <keyValuePair key="beta" value="FALSE" description="" />
   <keyValuePair key="build_version" value="1577090" description="" />
-  <keyValuePair key="date_generated" value="Tue Apr 02 00:17:41 2024" description="" />
+  <keyValuePair key="date_generated" value="Wed Apr 03 19:12:00 2024" description="" />
   <keyValuePair key="os_platform" value="WIN64" description="" />
   <keyValuePair key="product_version" value="XSIM v2016.2 (64-bit)" description="" />
   <keyValuePair key="project_id" value="5993a65e5c21406696cad3c13af8014a" description="" />
@@ -40,13 +40,13 @@
    <keyValuePair key="vhdl2008" value="false" description="" />
   </section>
   <section name="usage" level="2" order="2" description="">
-   <keyValuePair key="compiler_memory" value="97616_KB" description="" />
-   <keyValuePair key="compiler_time" value="1.19_sec" description="" />
-   <keyValuePair key="simulation_image_code" value="517 KB" description="" />
+   <keyValuePair key="compiler_memory" value="95920_KB" description="" />
+   <keyValuePair key="compiler_time" value="1.56_sec" description="" />
+   <keyValuePair key="simulation_image_code" value="509 KB" description="" />
    <keyValuePair key="simulation_image_data" value="22 KB" description="" />
    <keyValuePair key="total_instances" value="22" description="" />
-   <keyValuePair key="total_nets" value="600" description="" />
-   <keyValuePair key="total_processes" value="245" description="" />
+   <keyValuePair key="total_nets" value="602" description="" />
+   <keyValuePair key="total_processes" value="247" description="" />
    <keyValuePair key="xilinx_hdl_libraries_used" value="secureip unimacro_ver unisims_ver " description="" />
   </section>
  </section>
