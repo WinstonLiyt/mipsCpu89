@@ -1,13 +1,11 @@
-//@func   : 
-//@time   : 
-//@author :
+/* -------------------------------
+Func£ºLLbit¼Ä´æÆ÷¡£
+------------------------------- */
 
 `include "defines.vh"
 `timescale 1ns / 1ps
 
-
 module LLbit_reg(
-
 	input clk,
 	input rst,
 	input wire  wena,
@@ -19,9 +17,9 @@ module LLbit_reg(
 	always @ (posedge clk) begin
 		if (rst == `RstEnable)
 			LLbitOut <= 1'b0;
-		else if ((flush == 1'b1))
+		else if ((flush == 1'b1))  // Òì³£·¢Éú
 			LLbitOut <= 1'b0;
-		else if (( wena == `WriteEnable))
+		else if ((wena == `WriteEnable))
 			LLbitOut <= LLbitIn;
 	end
 

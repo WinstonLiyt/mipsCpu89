@@ -1,8 +1,10 @@
-// mem模块负责处理内存访问操作，包括加载和存储指令，以及与协处理器0（CP0）相关的指令。
+/* -----------------------------------------
+Func：处理内存访问操作，包括加载和存储指令，以及
+	  与协处理器CP0相关的指令。
+------------------------------------------- */
 
 `include "defines.vh"
 `timescale 1ns / 1ps
-
 
 module mem(
 
@@ -54,7 +56,7 @@ module mem(
 	
 	output reg[`RegBus] mem_addr_out,		// 内存地址
 	output mem_wena_out,					// 内存写使能
-	output reg[3:0] memSelOut,				// 内存选择
+	output reg[3:0] memSelOut,				// 内存选择（哪部分是有效数据）
 	output reg[`RegBus] memDataOut,			// 内存数据
 	output reg mem_ce_out,					// 内存使能
 	
@@ -71,13 +73,19 @@ module mem(
 	reg[`RegBus] cp0_epc;		// CP0 EPC寄存器
 	reg mem_wena;				// 内存写使能
 
+	// 外部数据存储器RAM的读、写信号
 	assign mem_wena_out = mem_wena & (~(|exceptionTypeOut));
 	assign zero32 = `ZeroWord;
 
+	// 访存阶段的指令是否是延迟槽指令
 	assign isInDelaySlotOut = isInDelaySlot;
+	// 访存阶段指令的地址
 	assign curInstrAddrOut = curInstrAddr;
 	assign cp0EPCOut = cp0_epc;
 
+	/* 获取 bit 寄存器的最新值，如果回写阶段的指令要写LLbit，
+	   那么回写阶段要写入的值就是LLbit寄存器的最新值;
+	   反之，LLbit模块给出的值LLbitIn是最新值 */
 	always @ (*) begin
 		if (rst == `RstEnable) 
 			LLbit <= 1'b0;
@@ -126,9 +134,11 @@ module mem(
 			cp0_reg_data_out <= cp0_dataIn;
 			case (aluc)
 				`EXE_LB_OP: begin
-					mem_addr_out <= memAddrIn;
-					mem_wena <= `WriteDisable;
-					mem_ce_out <= `ChipEnable;
+					mem_addr_out <= memAddrIn;	// 要访问的数据存储器地址
+					mem_wena <= `WriteDisable;	// 加载数据，不写
+					mem_ce_out <= `ChipEnable;	// 要访问数据存储器
+					// 依据 memAddrIn 的最后两位，确定 memSelOut 的值
+					// 【说明】 参考了 Wishbone 总线的相关规范
 					case (memAddrIn[1:0])
 						2'b00: begin
 							wdata_out <= {{24{memDataIn[31]}}, memDataIn[31:24]};
@@ -258,7 +268,7 @@ module mem(
 						end
 					endcase
 				end
-				`EXE_LL_OP:	begin
+				`EXE_LL_OP:	begin  // 【特殊】
 					mem_addr_out <= memAddrIn;
 					mem_wena <= `WriteDisable;
 					wdata_out <= memDataIn;
@@ -267,7 +277,7 @@ module mem(
 					memSelOut <= 4'b1111;
 					mem_ce_out <= `ChipEnable;
 				end				
-				`EXE_SB_OP:		begin
+				`EXE_SB_OP:	begin
 					mem_addr_out <= memAddrIn;
 					mem_wena <= `WriteEnable;
 					memDataOut <= {op2[7:0],op2[7:0],op2[7:0],op2[7:0]};
@@ -290,7 +300,7 @@ module mem(
 						end
 					endcase				
 				end
-				`EXE_SH_OP:		begin
+				`EXE_SH_OP: begin
 					mem_addr_out <= memAddrIn;
 					mem_wena <= `WriteEnable;
 					memDataOut <= {op2[15:0],op2[15:0]};
@@ -307,14 +317,14 @@ module mem(
 						end
 					endcase						
 				end
-				`EXE_SW_OP:		begin
+				`EXE_SW_OP: begin
 					mem_addr_out <= memAddrIn;
 					mem_wena <= `WriteEnable;
 					memDataOut <= op2;
 					memSelOut <= 4'b1111;			
 					mem_ce_out <= `ChipEnable;
 				end
-				`EXE_SWL_OP:		begin
+				`EXE_SWL_OP: begin
 					mem_addr_out <= {memAddrIn[31:2], 2'b00};
 					mem_wena <= `WriteEnable;
 					mem_ce_out <= `ChipEnable;
@@ -340,7 +350,7 @@ module mem(
 						end
 					endcase							
 				end
-				`EXE_SWR_OP:		begin
+				`EXE_SWR_OP: begin
 					mem_addr_out <= {memAddrIn[31:2], 2'b00};
 					mem_wena <= `WriteEnable;
 					mem_ce_out <= `ChipEnable;
@@ -366,7 +376,7 @@ module mem(
 						end
 					endcase											
 				end 
-				`EXE_SC_OP:		begin
+				`EXE_SC_OP: begin  // 【特殊】
 					if (LLbit == 1'b1) begin
 						LLbit_wena_out <= 1'b1;
 						LLbit_val_out <= 1'b0;
@@ -374,7 +384,7 @@ module mem(
 						mem_wena <= `WriteEnable;
 						memDataOut <= op2;
 						wdata_out <= 32'b1;
-						memSelOut <= 4'b1111;		
+						memSelOut <= 4'b1111;  // 存储1个字	
 						mem_ce_out <= `ChipEnable;				
 					end
 					else
@@ -404,7 +414,7 @@ module mem(
 		  cp0_epc <= cp0EPCValue;
 	end
 
-  always @ (*) begin
+  	always @ (*) begin
 		if (rst == `RstEnable)
 			cp0_cause <= `ZeroWord;
 		else if ((wb_cp0_wena == `WriteEnable) && (wb_cp0_waddr == `CP0_REG_CAUSE )) begin
@@ -416,6 +426,7 @@ module mem(
 		  cp0_cause <= cp0_causeIn;
 	end
 
+	// 给出最终的异常类型
 	always @ (*) begin
 		if (rst == `RstEnable)
 			exceptionTypeOut <= `ZeroWord;

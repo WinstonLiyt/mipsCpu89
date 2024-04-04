@@ -1,8 +1,12 @@
+/* -----------------------------------------
+Func：将访存阶段的运算结果，在下一个时钟传递到
+	  回写阶段。
+------------------------------------------- */
+
 `include "defines.vh"
 `timescale 1ns / 1ps
 
 module mem_wb(
-
 	input clk,
 	input rst,
 	input [5:0] stall,	
@@ -29,9 +33,7 @@ module mem_wb(
 	output reg wb_cp0_wena,				// CP0写使能
 	output reg[4:0] wb_cp0_waddr,		// CP0写地址
 	output reg[`RegBus] wb_cp0_data		// CP0写数据							       
-	
 );
-
 
 	always @ (posedge clk) begin
 		// 在复位、刷新或特定的暂停条件下，清零所有输出

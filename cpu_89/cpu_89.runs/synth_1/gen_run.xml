@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1711976536">
-  <File Type="RDS-PROPCONSTRS" Name="docpu_top_tb_drc_synth.rpt"/>
-  <File Type="PA-TCL" Name="docpu_top_tb.tcl"/>
-  <File Type="RDS-RDS" Name="docpu_top_tb.vds"/>
-  <File Type="RDS-UTIL" Name="docpu_top_tb_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="docpu_top_tb_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="docpu_top_tb.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="docpu_top_tb_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="docpu_top_tb_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1712211526">
+  <File Type="RDS-PROPCONSTRS" Name="docpu_board_drc_synth.rpt"/>
+  <File Type="PA-TCL" Name="docpu_board.tcl"/>
+  <File Type="RDS-RDS" Name="docpu_board.vds"/>
+  <File Type="RDS-UTIL" Name="docpu_board_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="docpu_board_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="docpu_board.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="docpu_board_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="docpu_board_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/defines.vh">
@@ -135,23 +135,8 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/docpu_top.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/docpu_top_tb.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/seg7x16.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -159,13 +144,26 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/divider.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/docpu_top.v">
+      <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/docpu_board.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/docpu_top_tb.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -181,12 +179,19 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="docpu_top_tb"/>
+      <Option Name="TopModule" Val="docpu_board"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
     <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/Cpu89.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/Cpu89.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>

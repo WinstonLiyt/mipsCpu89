@@ -4,7 +4,7 @@ Running: D:/LenovoSoftstore/Xilinx/Vivado/2016.2/bin/unwrapped/win64.o/xelab.exe
 Using 2 slave threads.
 Starting static elaboration
 WARNING: [VRFC 10-278] actual bit length 1 differs from formal bit length 4 for port ram_ce_o [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:43]
-WARNING: [VRFC 10-278] actual bit length 4 differs from formal bit length 1 for port mem_ce_out [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu.v:510]
+WARNING: [VRFC 10-278] actual bit length 4 differs from formal bit length 1 for port mem_ce_out [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu.v:508]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis

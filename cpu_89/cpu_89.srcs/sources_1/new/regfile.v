@@ -1,3 +1,7 @@
+/* -----------------------------------------
+Func：32个32位的通用整数寄存器，支持读写操作。
+------------------------------------------- */
+
 `include "defines.vh"
 `timescale 1ns / 1ps
 
@@ -56,68 +60,42 @@ module regfile(
 		array_reg[31] <= 32'b0;
 	end
 
-    // initial begin
-    //     array_reg[0] <= 0; array_reg[1] <= 0; array_reg[2] <= 0; array_reg[3] <= 0; array_reg[4] <= 0;
-    //     array_reg[5] <= 0; array_reg[6] <= 0; array_reg[7] <= 0; array_reg[8] <= 0; array_reg[9] <= 0;
-    //     array_reg[10] <= 0; array_reg[11] <= 0; array_reg[12] <= 0; array_reg[13] <= 0; array_reg[14] <= 0;
-    //     array_reg[15] <= 0; array_reg[16] <= 0; array_reg[17] <= 0; array_reg[18] <= 0; array_reg[19] <= 0;
-    //     array_reg[20] <= 0; array_reg[21] <= 0; array_reg[22] <= 0; array_reg[23] <= 0; array_reg[24] <= 0;
-    //     array_reg[25] <= 0; array_reg[26] <= 0; array_reg[27] <= 0; array_reg[28] <= 0; array_reg[29] <= 0;
-    //     array_reg[30] <= 0; array_reg[31] <= 0;
-    // end
-	// 初始化所有寄存器为0
-    // initial begin
-    //     integer i;
-    //     for (i = 0; i < `RegNum; i = i + 1) begin
-    //         array_reg[i] <= 0;
-    //     end
-    // end
-
-	// 写操作：在时钟上升沿且复位信号为非激活状态下，如果写使能且写地址非0，则更新寄存器值
+	// 写操作：在时钟上升沿且复位信号为非激活状态下，如果写使能且写地址非0（$0在MIPS 32下只能为0），则更新寄存器值
 	always @ (posedge clk) begin
 		if (rst == `RstDisable) begin
-			if ((we == `WriteEnable) && (waddr != `RegNumLog2'h0)) begin
+			if ((we == `WriteEnable) && (waddr != `RegNumLog2'h0))
 				array_reg[waddr] <= wdata;
-			end
 		end
 	end
 	
 	// 读端口1的读取逻辑
 	always @ (*) begin
-		if (rst == `RstEnable) begin
+		if (rst == `RstEnable)
 			rdata1 <= `ZeroWord;
-	  	end 
-		else if (raddr1 == `RegNumLog2'h0) begin
+		else if (raddr1 == `RegNumLog2'h0)  // $0寄存器始终为0
 	  		rdata1 <= `ZeroWord;
-	  	end
-		else if((raddr1 == waddr) && (we == `WriteEnable) && (re1 == `ReadEnable)) begin
+		/* 如果第一个读寄存器端口要读取的目标寄存器与要写入的目的寄存器是同一个寄存器，
+		   那么直接将要写入的值作为第一个读寄存器端口的输出。 */
+		else if ((raddr1 == waddr) && (we == `WriteEnable) && (re1 == `ReadEnable))
 	  		rdata1 <= wdata;  // 读-写冲突时，直接提供写数据
-	  	end
-		else if(re1 == `ReadEnable) begin
+		else if (re1 == `ReadEnable)
 	    	rdata1 <= array_reg[raddr1];
-	  	end
-		else begin
+		else
 	    	rdata1 <= `ZeroWord;
-	  	end
 	end
 
 	// 读端口2的读取逻辑
 	always @ (*) begin
-		if (rst == `RstEnable) begin
+		if (rst == `RstEnable)
 			rdata2 <= `ZeroWord;
-	  	end
-		else if (raddr2 == `RegNumLog2'h0) begin
+		else if (raddr2 == `RegNumLog2'h0)	// $0寄存器始终为0
 	  		rdata2 <= `ZeroWord;
-	  	end
-		else if((raddr2 == waddr) && (we == `WriteEnable) && (re2 == `ReadEnable)) begin
+		else if((raddr2 == waddr) && (we == `WriteEnable) && (re2 == `ReadEnable))
 	  		rdata2 <= wdata;  // 读-写冲突时，直接提供写数据
-	  	end
-		else if(re2 == `ReadEnable) begin
+		else if(re2 == `ReadEnable)
 	    	rdata2 <= array_reg[raddr2];
-	  	end
-		else begin
+		else
 	    	rdata2 <= `ZeroWord;
-	  	end
 	end
 
 endmodule

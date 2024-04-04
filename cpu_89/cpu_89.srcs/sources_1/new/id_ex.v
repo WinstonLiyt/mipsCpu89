@@ -1,8 +1,13 @@
+/* -----------------------------------------
+Func：将译码阶段取得的运算类型、源操作数、要写的
+      目的寄存器地址等结果，在下一个时钟传递到流
+      水线执行阶段。
+------------------------------------------- */
+
 `include "defines.vh"
 `timescale 1ns / 1ps
 
 module id_ex(
-
 	input clk,
 	input rst,
 	
@@ -35,69 +40,8 @@ module id_ex(
 	
 );
 
-// 	always @ (posedge clk) begin
-// 		if (rst == `RstEnable) begin
-// 			exe_aluc_op <= `EXE_NOP_OP;
-// 			exe_alucSel <= `EXE_RES_NOP;
-// 			exe_op1 <= `ZeroWord;
-// 			exe_op2 <= `ZeroWord;
-// 			exe_waddr <= `NOPRegAddr;
-// 			exe_reg_wena <= `WriteDisable;
-// 			exeJumpAddr <= `ZeroWord;
-// 			exeInDelaySlot <= `NotInDelaySlot;
-// 	    	isInDelaySlotOut <= `NotInDelaySlot;		
-// 	    	exeInstr <= `ZeroWord;	
-// 	    	exeExceptionType <= `ZeroWord;
-// 	    	exeCurInstrAddr <= `ZeroWord;
-// 		end
-// 		else if(flush == 1'b1 ) begin
-// 			exe_aluc_op <= `EXE_NOP_OP;
-// 			exe_alucSel <= `EXE_RES_NOP;
-// 			exe_op1 <= `ZeroWord;
-// 			exe_op2 <= `ZeroWord;
-// 			exe_waddr <= `NOPRegAddr;
-// 			exe_reg_wena <= `WriteDisable;
-// 			exeExceptionType <= `ZeroWord;
-// 			exeJumpAddr <= `ZeroWord;
-// 			exeInstr <= `ZeroWord;
-// 			exeInDelaySlot <= `NotInDelaySlot;
-// 	    	exeCurInstrAddr <= `ZeroWord;	
-// 	    	isInDelaySlotOut <= `NotInDelaySlot;		    
-// 		end
-// 		else if(stall[2] == `Stop && stall[3] == `NoStop) begin
-// 			exe_aluc_op <= `EXE_NOP_OP;
-// 			exe_alucSel <= `EXE_RES_NOP;
-// 			exe_op1 <= `ZeroWord;
-// 			exe_op2 <= `ZeroWord;
-// 			exe_waddr <= `NOPRegAddr;
-// 			exe_reg_wena <= `WriteDisable;	
-// 			exeJumpAddr <= `ZeroWord;
-// 			exeInDelaySlot <= `NotInDelaySlot;
-// 	    	exeInstr <= `ZeroWord;			
-// 	    	exeExceptionType <= `ZeroWord;
-// 	    	exeCurInstrAddr <= `ZeroWord;	
-// 		end
-// 		else if(stall[2] == `NoStop) begin		
-// 			exe_aluc_op <= id_aluc;
-// 			exe_alucSel <= id_alucSel;
-// 			exe_op1 <= id_op1;
-// 			exe_op2 <= id_op2;
-// 			exe_waddr <= id_wd;
-// 			exe_reg_wena <= id_wena;		
-// 			exeJumpAddr <= idJumpAddr;
-// 			exeInDelaySlot <= idInDelaySlots;
-// 	    	isInDelaySlotOut <= nxtInstrInDelaySlots;
-// 	    	exeInstr <= idInstr;			
-// 	    	exeExceptionType <= idExceptionType;
-// 	    	exeCurInstrAddr <= idCurInstrAddr;		
-// 		end
-// 	end
-	
-// endmodule
-
 always @(posedge clk) begin
     if (rst == `RstEnable || flush == 1'b1 || (stall[2] == `Stop && stall[3] == `NoStop)) begin
-        // Reset or flush pipeline stage, setting default values
         exe_aluc_op <= `EXE_NOP_OP;
         exe_alucSel <= `EXE_RES_NOP;
         exe_op1 <= `ZeroWord;
@@ -112,7 +56,6 @@ always @(posedge clk) begin
         exeCurInstrAddr <= `ZeroWord;
     end 
 	else if (stall[2] == `NoStop) begin
-        // Pass ID stage values to EX stage
         exe_aluc_op <= id_aluc;
         exe_alucSel <= id_alucSel;
         exe_op1 <= id_op1;

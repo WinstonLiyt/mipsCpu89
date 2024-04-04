@@ -1,5 +1,6 @@
 /* -------------------------------
 Func：执行有符号或无符号的32位除法。
+	  （试商法）
 ------------------------------- */
 
 `include "defines.vh"
@@ -9,18 +10,18 @@ module div(
 	input clk, // 时钟信号
     input rst, // 复位信号
     
-    input isSignedDivision, // 是否进行有符号除法
-    input [31:0] dividend, divisor, // 被除数与除数
-    input startDivision, cancelDivision, // 开始/取消当前除法操作信号
-    output reg [63:0] res, // 除法结果（包括商和余数）
-    output reg resReady // 结果准备好的信号
+    input isSignedDivision, 				// 是否进行有符号除法
+    input [31:0] dividend, divisor, 		// 被除数与除数
+    input startDivision, cancelDivision, 	// 开始/取消当前除法操作信号
+    output reg [63:0] res, 					// 除法结果（包括商和余数）
+    output reg resReady 					// 结果准备好的信号
 );
 
-	wire [32:0] tmp; // 用于存储每一步减法的临时结果
-    reg [5:0] cnt; // 计数器，记录除法过程中的步骤
-    reg [64:0] dividendtmp; // 存储被除数和部分余数
-	reg [31:0] divisortmp; // 存储除数
-    reg [1:0] state; // 除法器的状态
+	wire [32:0] tmp; 			// 用于存储每一步减法的临时结果
+    reg [5:0] cnt; 				// 记录试商法进行了几轮，当等于32时，表示试商法结束
+    reg [64:0] dividendtmp; 	// 存储被除数和部分余数
+	reg [31:0] divisortmp; 		// 存储除数
+    reg [1:0] state; 			// 除法器的状态
     reg [31:0] temp_op1, temp_op2; // 临时存储处理过的被除数和除数
 	
 	// 临时结果的计算

@@ -1,34 +1,39 @@
-//all area
-`define RstEnable 1'b1
-`define RstDisable 1'b0
-`define ZeroWord 32'h00000000
-`define WriteEnable 1'b1
-`define WriteDisable 1'b0
-`define ReadEnable 1'b1
-`define ReadDisable 1'b0
-`define AluOpBus 7:0
-`define AluSelBus 2:0
-`define InstValid 1'b0
-`define InstInvalid 1'b1
-`define Stop 1'b1
-`define NoStop 1'b0
-`define InDelaySlot 1'b1
-`define NotInDelaySlot 1'b0
-`define Branch 1'b1
-`define NotBranch 1'b0
-`define InterruptAssert 1'b1
-`define InterruptNotAssert 1'b0
-`define TrapAssert 1'b1
-`define TrapNotAssert 1'b0
-`define True_v 1'b1
-`define False_v 1'b0
-`define ChipEnable 1'b1
-`define ChipDisable 1'b0
-`define DataBegin 32'h10010000
-`define TextBegin 32'h00400000
-`define ExceptionBegin 32'h00400004
+/**********************************************************
+    说明：  以下宏定义命名与含义大部分来自《自己动手写CPU》一书，
+            部分为本人设置或修改（InstMemNum、DataMemNum参数等）。
+ **********************************************************/
 
-//instructions
+/*********************** 全局宏定义 ************************/
+`define RstEnable 1'b1          // 复位使能
+`define RstDisable 1'b0         // 复位禁用
+`define ZeroWord 32'h00000000   // 全零字
+`define WriteEnable 1'b1        // 写使能
+`define WriteDisable 1'b0       // 写禁用
+`define ReadEnable 1'b1         // 读使能
+`define ReadDisable 1'b0        // 读禁用
+`define AluOpBus 7:0            // ALU操作码总线
+`define AluSelBus 2:0           // ALU选择码总线
+`define InstValid 1'b0          // 指令有效
+`define InstInvalid 1'b1        // 指令无效
+`define Stop 1'b1               // 停顿
+`define NoStop 1'b0             // 不停顿
+`define InDelaySlot 1'b1        // 延迟槽中
+`define NotInDelaySlot 1'b0     // 不在延迟槽中
+`define Branch 1'b1             // 分支
+`define NotBranch 1'b0          // 不分支
+`define InterruptAssert 1'b1    // 中断断言
+`define InterruptNotAssert 1'b0 // 中断不断言
+`define TrapAssert 1'b1         // 陷阱断言
+`define TrapNotAssert 1'b0      // 陷阱不断言
+`define True_v 1'b1             // 真
+`define False_v 1'b0            // 假
+`define ChipEnable 1'b1         // 芯片使能
+`define ChipDisable 1'b0        // 芯片禁用
+`define DataBegin 32'h10010000  // 数据区起始地址
+`define TextBegin 32'h00400000  // 指令区起始地址
+`define ExceptionBegin 32'h00400004 // 异常处理程序起始地址
+
+/***************** 具体指令有关的宏定义 ******************/
 `define EXE_AND  6'b100100
 `define EXE_OR   6'b100101
 `define EXE_XOR 6'b100110
@@ -242,28 +247,28 @@
 `define EXE_RES_NOP 3'b000
 
 
-//指inst_rom
-`define InstAddrBus 31:0
-`define InstBus 31:0
-`define InstMemNum 2048
-`define InstMemNumLog2 11
+/***************** 与指令存储器ROM有关的宏定义 ******************/
+`define InstAddrBus 31:0    // 指令地址总线
+`define InstBus 31:0        // 指令总线
+`define InstMemNum 2048     // 指令存储器容量【注意这里不要按照书上的参数！】
+`define InstMemNumLog2 11   // 指令存储器容量对数
 
-//data_ram
-`define DataAddrBus 31:0
-`define DataBus 31:0
-`define DataMemNum 512 //131071
-`define DataMemNumLog2 9 //17
-`define ByteWidth 7:0
+/***************** 与数据存储器RAM有关的宏定义 ******************/
+`define DataAddrBus 31:0    // 数据地址总线
+`define DataBus 31:0        // 数据总线
+`define DataMemNum 512      // 数据存储器容量
+`define DataMemNumLog2 9    // 数据存储器容量对数
+`define ByteWidth 7:0       // 字节宽度
 
-//通regfile
-`define RegAddrBus 4:0
-`define RegBus 31:0
-`define RegWidth 32
-`define DoubleRegWidth 64
-`define DoubleRegBus 63:0
-`define RegNum 32
-`define RegNumLog2 5
-`define NOPRegAddr 5'b00000
+/**************** 与寄存器堆Regfile有关的宏定义 *****************/
+`define RegAddrBus 4:0      // 寄存器地址总线
+`define RegBus 31:0         // 寄存器总线
+`define RegWidth 32         // 寄存器宽度
+`define DoubleRegWidth 64   // 双字寄存器宽度
+`define DoubleRegBus 63:0   // 双字寄存器总线
+`define RegNum 32           // 寄存器数量
+`define RegNumLog2 5        // 寄存器数量对数
+`define NOPRegAddr 5'b00000 // NOP寄存器地址
 
 //div
 `define DivFree 2'b00

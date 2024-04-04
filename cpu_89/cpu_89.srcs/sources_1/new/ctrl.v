@@ -14,7 +14,7 @@ module ctrl(
 
     output reg[`RegBus] pcNew, // 新的PC值
     output reg flush, // 清除信号
-    output reg[5:0] stall // 暂停信号
+    output reg[5:0] stall // 暂停信号（取址地址PC，取址，译码，执行，访存，回写）
 );
 
 	// 控制逻辑

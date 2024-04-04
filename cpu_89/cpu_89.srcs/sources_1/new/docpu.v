@@ -1,37 +1,35 @@
-//@func   : 
-//@time   : 
-//@author :
+/* -------------------------------
+Func：cpu总台。
+------------------------------- */
 
 `include "defines.vh"
 `timescale 1ns / 1ps
 
 module docpu(
-	input wire 					   clk,
-	input wire					   rst,
+	input clk,
+	input rst,
 	
-    input wire[5:0] 			   externalInterrupts,
+    input [5:0] externalInterrupts,	// 6个外部硬件中断信号
 	
-	input wire[`RegBus]            rom_data_i,
-	output wire[`RegBus]		   rom_addr_o,
-	output wire         		   rom_ce_o,
+	input [`RegBus] rom_data_i,		// 从指令存储器取得的指令
+	output [`RegBus] rom_addr_o,	// 输出到指令存储器的地址
+	output rom_ce_o,				// 指令存储器使能信号
 	
-    //连接数据存储器data_ram
-	input wire[`RegBus]            ram_data_i,
-	output wire[`RegBus]           ram_addr_o,
-	output wire[`RegBus]           ram_data_o,
-	output wire                    ram_we_o,
-	output wire[3:0]               ram_sel_o,
-	output wire[3:0]               ram_ce_o,
+	input [`RegBus] ram_data_i,		// 从数据存储器取得的数据
+	output [`RegBus] ram_addr_o,	// 输出到数据存储器的地址
+	output [`RegBus] ram_data_o,	// 输出到数据存储器的数据
+	output ram_we_o,				// 是否是对数据存储器的写操作，为1表示是写操作
+	output [3:0] ram_sel_o,			// 字节选择信号
+	output [3:0] ram_ce_o,			// 数据存储器写使能信号
 	
-	output wire                    timerInterruptOut
-	
+	output timerInterruptOut		// 定时器中断信号
 );
 
 	wire[`InstAddrBus] pc;
 	wire[`InstAddrBus] id_pc_i;
 	wire[`InstBus] id_inst_i;
 	
-	//连接译码阶段ID模块的输出与ID/EX模块的输入
+	// 连接译码阶段ID模块的输出与ID/EX模块的输入
 	wire[`AluOpBus] id_aluop_o;
 	wire[`AluSelBus] id_alusel_o;
 	wire[`RegBus] id_reg1_o;
@@ -44,7 +42,7 @@ module docpu(
     wire[31:0] id_excepttype_o;
     wire[`RegBus] id_current_inst_address_o;
 	
-	//连接ID/EX模块的输出与执行阶段EX模块的输入
+	// 连接ID/EX模块的输出与执行阶段EX模块的输入
 	wire[`AluOpBus] exe_aluc;
 	wire[`AluSelBus] ex_alusel_i;
 	wire[`RegBus] ex_reg1_i;
@@ -57,7 +55,7 @@ module docpu(
     wire[31:0] ex_excepttype_i;	
     wire[`RegBus] ex_current_inst_address_i;	
 	
-	//连接执行阶段EX模块的输出与EX/MEM模块的输入
+	// 连接执行阶段EX模块的输出与EX/MEM模块的输入
 	wire ex_wreg_o;
 	wire[`RegAddrBus] ex_wd_o;
 	wire[`RegBus] ex_wdata_o;
@@ -74,7 +72,7 @@ module docpu(
 	wire[`RegBus] ex_current_inst_address_o;
 	wire ex_is_in_delayslot_o;
 
-	//连接EX/MEM模块的输出与访存阶段MEM模块的输入
+	// 连接EX/MEM模块的输出与访存阶段MEM模块的输入
 	wire mem_waddr_in;
 	wire[`RegAddrBus] mem_wd_in;
 	wire[`RegBus] mem_data_in;
@@ -91,7 +89,7 @@ module docpu(
 	wire mem_is_in_delayslot_i;
 	wire[`RegBus] mem_current_inst_address_i;	
 
-	//连接访存阶段MEM模块的输出与MEM/WB模块的输入
+	// 连接访存阶段MEM模块的输出与MEM/WB模块的输入
 	wire mem_wreg_o;
 	wire[`RegAddrBus] mem_wd_o;
 	wire[`RegBus] mem_wdata_o;
@@ -107,7 +105,7 @@ module docpu(
 	wire mem_is_in_delayslot_o;
 	wire[`RegBus] mem_current_inst_address_o;			
 	
-	//连接MEM/WB模块的输出与回写阶段的输入	
+	// 连接MEM/WB模块的输出与回写阶段的输入	
 	wire wb_wreg_i;
 	wire[`RegAddrBus] wb_wd_i;
 	wire[`RegBus] wb_wdata_i;
@@ -123,7 +121,7 @@ module docpu(
 	wire wb_is_in_delayslot_i;
 	wire[`RegBus] wb_current_inst_address_i;
 	
-	//连接译码阶段ID模块与通用寄存器Regfile模块
+	// 连接译码阶段ID模块与通用寄存器Regfile模块
     wire reg1_read;
     wire reg2_read;
     wire[`RegBus] reg1_data;
@@ -131,11 +129,11 @@ module docpu(
     wire[`RegAddrBus] reg1_addr;
     wire[`RegAddrBus] reg2_addr;
 
-	//连接执行阶段与hilo模块的输出，读取HI、LO寄存器
+	// 连接执行阶段与hilo模块的输出，读取HI、LO寄存器
 	wire[`RegBus] 	hi;
 	wire[`RegBus]   lo;
 
-   //连接执行阶段与ex_reg模块，用于多周期的MADD、MADDU、MSUB、MSUBU指令
+   // 连接执行阶段与ex_reg模块，用于多周期的MADD、MADDU、MSUB、MSUBU指令
 	wire[`DoubleRegBus] HILO_tmp_out;
 	wire[1:0] cntOut;
 	
@@ -178,7 +176,7 @@ module docpu(
 
     wire[`RegBus] latest_epc;
   
-    //pc_reg例化
+    // pc_reg例化
 	pc_reg pc_reg0(
 		.clk(clk),
 		.rst(rst),
@@ -191,9 +189,9 @@ module docpu(
 		.ce(rom_ce_o)	
 	);
 	
-    assign rom_addr_o = pc;
+    assign rom_addr_o = pc;		// 指令存储器的输入地址就是pc的值
 
-    //IF/ID模块例化
+    // IF/ID模块例化
 	if_id if_id0(
 		.clk(clk),
 		.rst(rst),
@@ -205,7 +203,7 @@ module docpu(
 		.idInstr(id_inst_i)      	
 	);
 	
-	//译码阶段ID模块
+	// 译码阶段ID模块
 	id id0(
 		.rst(rst),
 		.pcIn(id_pc_i),
@@ -216,26 +214,26 @@ module docpu(
 		.op1_in(reg1_data),
 		.op2_in(reg2_data),
 
-        //处于执行阶段的指令要写入的目的寄存器信息
+        // 处于执行阶段的指令要写入的目的寄存器信息
 		.exe_waddr_in(ex_wreg_o),
 		.exe_data_in(ex_wdata_o),
 		.exe_wd_in(ex_wd_o),
 
-        //处于访存阶段的指令要写入的目的寄存器信息
+        // 处于访存阶段的指令要写入的目的寄存器信息
 		.mem_waddr_in(mem_wreg_o),
 		.mem_data_in(mem_wdata_o),
 		.mem_wd_in(mem_wd_o),
 
         .isInDelaySlot(isInDelaySlot),
 
-		//送到regfile的信息
+		// 送到regfile的信息
 		.op1_rena(reg1_read),
 		.op2_rena(reg2_read), 	  
 
 		.op1AddrOut(reg1_addr),
 		.op2AddrOut(reg2_addr), 
 	  
-		//送到ID/EX模块的信息
+		// 送到ID/EX模块的信息
 		.alucOut(id_aluop_o),
 		.alucSelOut(id_alusel_o),
 		.op1_out(id_reg1_o),
@@ -256,7 +254,7 @@ module docpu(
 		.stallOut(idStall)		
 	);
 
-    //通用寄存器Regfile例化
+    // 通用寄存器Regfile例化
 	regfile regfile1(
 		.clk (clk),
 		.rst (rst),
@@ -271,7 +269,7 @@ module docpu(
 		.rdata2 (reg2_data)
 	);
 
-	//ID/EX模块
+	// ID/EX模块
 	id_ex id_ex0(
 		.clk(clk),
 		.rst(rst),
@@ -279,7 +277,7 @@ module docpu(
 		.stall(stall),
 		.flush(flush),
 		
-		//从译码阶段ID模块传递的信息
+		// 从译码阶段ID模块传递的信息
 		.id_aluc(id_aluop_o),
 		.id_alucSel(id_alusel_o),
 		.id_op1(id_reg1_o),
@@ -293,7 +291,7 @@ module docpu(
 		.idExceptionType(id_excepttype_o),
 		.idCurInstrAddr(id_current_inst_address_o),
 	
-		//传递到执行阶段EX模块的信息
+		// 传递到执行阶段EX模块的信息
 		.exe_aluc_op(exe_aluc),
 		.exe_alucSel(ex_alusel_i),
 		.exe_op1(ex_reg1_i),
@@ -308,11 +306,11 @@ module docpu(
 		.exeCurInstrAddr(ex_current_inst_address_i)		
 	);		
 	
-	//EX模块
+	// EX模块
 	ex ex0(
 		.rst(rst),
 	
-		//送到执行阶段EX模块的信息
+		// 送到执行阶段EX模块的信息
 		.aluc(exe_aluc),
 		.alucSelect(ex_alusel_i),
 		.op1(ex_reg1_i),
@@ -342,12 +340,12 @@ module docpu(
 		.exceptionType(ex_excepttype_i),
 		.curInstrAddr(ex_current_inst_address_i),
 
-		//访存阶段的指令是否要写CP0，用来检测数据相关
+		// 访存阶段的指令是否要写CP0，用来检测数据相关
         .mem_cp0_wena(mem_cp0_reg_we_o),
 		.mem_cp0_waddr(mem_cp0_reg_write_addr_o),
 		.mem_cp0_data(mem_cp0_reg_data_o),
 	
-		//回写阶段的指令是否要写CP0，用来检测数据相关
+		// 回写阶段的指令是否要写CP0，用来检测数据相关
         .wb_cp0_wena(wb_cp0_reg_we_i),
 		.wb_cp0_waddr(wb_cp0_reg_write_addr_i),
 		.wb_cp0_data(wb_cp0_reg_data_i),
@@ -355,12 +353,12 @@ module docpu(
 		.cp0_dataIn(cp0_data_o),
 		.cp0_reg_addr_out(cp0_raddr_i),
 		
-		//向下一流水级传递，用于写CP0中的寄存器
+		// 向下一流水级传递，用于写CP0中的寄存器
 		.cp0_reg_wena_out(ex_cp0_reg_we_o),
 		.cp0_reg_waddr_out(ex_cp0_reg_write_addr_o),
 		.cp0_reg_data_out(ex_cp0_reg_data_o),	  
 			  
-        //EX模块的输出到EX/MEM模块信息
+        // EX模块的输出到EX/MEM模块信息
 		.wd_out(ex_wd_o),
 		.reg_wena(ex_wreg_o),
 		.wdata_out(ex_wdata_o),
@@ -389,7 +387,7 @@ module docpu(
 		
 	);
 
-    //EX/MEM模块
+    // EX/MEM模块
     ex_mem ex_mem0(
 		.clk(clk),
 		.rst(rst),
@@ -420,7 +418,7 @@ module docpu(
 		.HILOLast(HILO_tmp_out),
 		.HILOCnt(cntOut),	
 
-		//送到访存阶段MEM模块的信息
+		// 送到访存阶段MEM模块的信息
 		.mem_waddr(mem_wd_in),
 		.mem_wena(mem_waddr_in),
 		.mem_data(mem_data_in),
@@ -445,11 +443,11 @@ module docpu(
 						       	
 	);
 	
-    //MEM模块例化
+    // MEM模块例化
 	mem mem0(
 		.rst(rst),
 	
-		//来自EX/MEM模块的信息	
+		// 来自EX/MEM模块的信息	
 		.EXE_waddr(mem_wd_in),
 		.EXE_wena(mem_waddr_in),
 		.EXE_wdata(mem_data_in),
@@ -461,12 +459,12 @@ module docpu(
 		.memAddrIn(mem_mem_addr_i),
 		.op2(mem_reg2_i),
 	
-		//来自memory的信息
+		// 来自memory的信息
 		.memDataIn(ram_data_i),
 
-		//LLbit_i是LLbit寄存器的值
+		// LLbit_i是LLbit寄存器的值
 		.LLbitIn(LLbitOut),
-		//但不一定是最新值，回写阶段可能要写LLbit，所以还要进一步判断
+		// 但不一定是最新值，回写阶段可能要写LLbit，所以还要进一步判断
 		.wb_LLbit_wenaIn(wb_LLbit_wenaIn),
 		.wb_LLbit_ValIn(wb_LLbit_ValIn),
 
@@ -482,7 +480,7 @@ module docpu(
 		.cp0_causeIn(cp0_cause),
 		.cp0EPCValue(cp0_epc),
 		
-		//回写阶段的指令是否要写CP0，用来检测数据相关
+		// 回写阶段的指令是否要写CP0，用来检测数据相关
         .wb_cp0_wena(wb_cp0_reg_we_i),
 		.wb_cp0_waddr(wb_cp0_reg_write_addr_i),
 		.wb_cp0_data(wb_cp0_reg_data_i),	  
@@ -494,7 +492,7 @@ module docpu(
 		.cp0_reg_waddr_out(mem_cp0_reg_write_addr_o),
 		.cp0_reg_data_out(mem_cp0_reg_data_o),			
 	  
-		//送到MEM/WB模块的信息
+		// 送到MEM/WB模块的信息
 		.wd_out(mem_wd_o),
 		.reg_wena(mem_wreg_o),
 		.wdata_out(mem_wdata_o),
@@ -502,7 +500,7 @@ module docpu(
 		.LOOut(mem_lo_o),
 		.HILO_ena_out(mem_whilo_o),
 		
-		//送到memory的信息
+		// 送到memory的信息
 		.mem_addr_out(ram_addr_o),
 		.mem_wena_out(ram_we_o),
 		.memSelOut(ram_sel_o),
@@ -515,7 +513,7 @@ module docpu(
 		.curInstrAddrOut(mem_current_inst_address_o)		
 	);
 
-    //MEM/WB模块
+    // MEM/WB模块
 	mem_wb mem_wb0(
 		.clk(clk),
 		.rst(rst),
@@ -523,7 +521,7 @@ module docpu(
         .stall(stall),
         .flush(flush),
 
-		//来自访存阶段MEM模块的信息	
+		// 来自访存阶段MEM模块的信息	
 		.mem_waddr(mem_wd_o),
 		.mem_wena(mem_wreg_o),
 		.mem_data(mem_wdata_o),
@@ -538,7 +536,7 @@ module docpu(
 		.mem_cp0_waddr(mem_cp0_reg_write_addr_o),
 		.mem_cp0_data(mem_cp0_reg_data_o),					
 	
-		//送到回写阶段的信息
+		// 送到回写阶段的信息
 		.wb_waddr(wb_wd_i),
 		.wb_wena(wb_wreg_i),
 		.wb_data(wb_wdata_i),
@@ -555,7 +553,7 @@ module docpu(
 									       	
 	);
 
-	//HILO register
+	// HILO register
 	hilo_reg hilo_reg0(
 		.clk(clk),
 		.rst(rst),
@@ -570,7 +568,7 @@ module docpu(
 		.LOOut(lo)	
 	);
 	
-	//ctrl module
+	// ctrl module
 	ctrl ctrl0(
 		.rst(rst),
 	
@@ -586,7 +584,7 @@ module docpu(
 		.stall(stall)       	
 	);
 
-	//divider module
+	// divider module
 	div div0(
 		.clk(clk),
 		.rst(rst),
@@ -601,7 +599,7 @@ module docpu(
 		.resReady(div_ready)
 	);
 
-	//LLbit register
+	// LLbit register
 	LLbit_reg LLbit_reg0(
 		.clk(clk),
 		.rst(rst),
@@ -616,7 +614,7 @@ module docpu(
 	
 	);
 
-	//CP0 register
+	// CP0 register
 	cp0_reg cp0_reg0(
 		.clk(clk),
 		.rst(rst),
@@ -639,7 +637,6 @@ module docpu(
 		.epcOut(cp0_epc),
 		.configOut(cp0_config),
 		.processorIDOut(cp0_prid),
-		
 		
 		.timerInterruptOut(timerInterruptOut)  			
 	);

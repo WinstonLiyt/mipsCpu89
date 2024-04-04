@@ -1,17 +1,28 @@
+/* -----------------------------------------
+Func：对指令进行译码，得到最终运算的类型、子类型、
+	  源操作数1、源操作数 2、要写入的目的寄存器
+	  地址等信息，其中运算类型指的是逻辑运算、
+	  移位运算、算术运算等，子类型指的是更加详细
+	  的运算类型，比如:当运算类型是逻辑运算时，
+	  运算子类型可以是逻辑“或”运算、逻辑“与”运算、
+	  逻辑“异或”运算等。
+------------------------------------------- */
+
 `include "defines.vh"
 `timescale 1ns / 1ps
 
 module id(
-
 	input rst,
 	input [`InstAddrBus] pcIn,
 	input [`InstBus] instr,
 
   	input [`AluOpBus] exe_aluc,		// ALU控制信号
-	input exe_waddr_in,				// 目标寄存器地址（EXE）
+
+	// 采用数据前推的方法来解决流水线数据相关问题
+	input exe_waddr_in,				// 是否要写目的寄存器（EXE）
 	input [`RegBus] exe_data_in,	// 目标寄存器数据
 	input [`RegAddrBus] exe_wd_in,	// 目标寄存器地址
-	input mem_waddr_in,				// 目标寄存器地址（MEM）
+	input mem_waddr_in,				// 是否要写目的寄存器（MEM）
 	input [`RegBus] mem_data_in,	// 目标寄存器数据
 	input [`RegAddrBus] mem_wd_in,	// 目标寄存器地址
 	input [`RegBus] op1_in, op2_in,	// 源操作数1/2
@@ -24,7 +35,8 @@ module id(
 	output reg[`RegBus] op1_out, op2_out,				// 源操作数1/2数据
 	output reg[`RegAddrBus] wd_out,						// 目标寄存器地址
 	output reg reg_wena,								// 写使能
-	output wire[`RegBus] inst_out,						// 指令输出
+	output wire[`RegBus] inst_out,						// 指令输出（用于存储指令）
+
 	output reg nxtInstrInDelaySlotsOut,					// 下一条指令是否处于延迟槽
 	output reg isBranch,								// 是否分支
 	output reg[`RegBus] branchAddr,						// 分支目标地址
@@ -37,10 +49,6 @@ module id(
 
 	assign inst_out = instr;
 
-	wire[`RegBus] pc4;
-	assign pc4 = pcIn + 4;
-	assign curInstrAddrOut = pcIn;
-
 	wire[5:0] op = instr[31:26];	// op
 	wire[5:0] func = instr[5:0];	// func
 	wire[4:0] rt = instr[20:16];	// rt
@@ -50,7 +58,11 @@ module id(
 	reg[`RegBus] imm;				// 立即数
 	wire[`RegBus] offset;			// offset
 	assign offset = {{14{instr[15]}}, instr[15:0], 2'b00};
-	wire[`RegBus] pc8;				// pc+8
+
+	wire[`RegBus] pc4;
+	assign pc4 = pcIn + 4;
+	assign curInstrAddrOut = pcIn;
+	wire[`RegBus] pc8;
 	assign pc8 = pcIn + 8;
 	wire preInstrIsLoad;			// 前一条指令是否是Load指令
 	reg instvalid;					// 指令有效
@@ -62,8 +74,13 @@ module id(
 						 || (exe_aluc == `EXE_LW_OP) || (exe_aluc == `EXE_LWR_OP)
 						 || (exe_aluc == `EXE_LWL_OP)|| (exe_aluc == `EXE_LL_OP)
 						 || (exe_aluc == `EXE_SC_OP)) ? 1'b1 : 1'b0;
+	/* exceptionTypeOut的低8bit留给外部中断，第8bit表示是否是syscall指令引起的系统调用异常，
+	   第9bit表示是否是无效指令引起的异常，第12bit表示是否是eret指令，
+	   eret指令可以认为是一种特殊的异常--返回异常 */
 	assign exceptionTypeOut = {19'b0, isEret, 2'b0, instvalid, isSyscall, 8'b0};
     
+	/*************************对指令进行译码*************************/
+	// nop、ssnop指令不用特意实现，完全可以当作特殊的逻辑左移指令sll。
 	always @ (*) begin	
 		if (rst == `RstEnable) begin
 			alucOut <= `EXE_NOP_OP;
@@ -91,8 +108,8 @@ module id(
 			instvalid <= `InstInvalid;	   
 			op1_rena <= 1'b0;
 			op2_rena <= 1'b0;
-			op1AddrOut <= rs;
-			op2AddrOut <= rt;		
+			op1AddrOut <= rs;	// 源操作数1地址
+			op2AddrOut <= rt;	// 源操作数2地址
 			imm <= `ZeroWord;
 			linkAddr <= `ZeroWord;
 			branchAddr <= `ZeroWord;
@@ -102,9 +119,12 @@ module id(
 			isEret <= `False_v;					 			
 			case (op)
 		    	`EXE_SPECIAL_INST: begin
+				// shamt
 					case (shamt)
 		    			5'b00000: begin
+							// func
 		    				case (func)
+								// R类型逻辑指令（4）
 		    					`EXE_OR: begin
 									reg_wena <= `WriteEnable;
 									alucOut <= `EXE_OR_OP;
@@ -161,6 +181,7 @@ module id(
 									op2_rena <= 1'b1;
 		  							instvalid <= `InstValid;			
 		  						end
+								// 移动操作指令（6）
 								`EXE_MFHI: begin
 									reg_wena <= `WriteEnable;
 									alucOut <= `EXE_MFHI_OP;
@@ -178,7 +199,7 @@ module id(
 		  							instvalid <= `InstValid;	
 								end
 								`EXE_MTHI: begin
-									reg_wena <= `WriteDisable;
+									reg_wena <= `WriteDisable;  // 不写通用寄存器
 									alucOut <= `EXE_MTHI_OP;
 		  							op1_rena <= 1'b1;
 									op2_rena <= 1'b0; 
@@ -213,6 +234,7 @@ module id(
 	 								else
 	 									reg_wena <= `WriteDisable;	  							
 								end
+								// 简单算术操作指令（2）
 								`EXE_SLT: begin
 									reg_wena <= `WriteEnable;
 									alucOut <= `EXE_SLT_OP;
@@ -236,7 +258,8 @@ module id(
 									op1_rena <= 1'b0;
 									op2_rena <= 1'b1;
 		  							instvalid <= `InstValid;	
-								end								
+								end
+								// 简单算术操作指令（4）
 								`EXE_ADD: begin
 									reg_wena <= `WriteEnable;
 									alucOut <= `EXE_ADD_OP;
@@ -269,6 +292,7 @@ module id(
 									op2_rena <= 1'b1;
 		  							instvalid <= `InstValid;	
 								end
+								// 简单算术操作指令-R（2）
 								`EXE_MULT: begin
 									reg_wena <= `WriteDisable;
 									alucOut <= `EXE_MULT_OP;
@@ -283,6 +307,7 @@ module id(
 									op2_rena <= 1'b1;
 									instvalid <= `InstValid;	
 								end
+								// 除法（2）
 								`EXE_DIV: begin
 									reg_wena <= `WriteDisable;
 									alucOut <= `EXE_DIV_OP;
@@ -296,8 +321,9 @@ module id(
 		  							op1_rena <= 1'b1;
 									op2_rena <= 1'b1;
 									instvalid <= `InstValid;	
-								end			
-								`EXE_JR: begin
+								end
+								// 跳转指令（2）
+								`EXE_JR: begin  // 不需要保存返回地址，且为绝对转移
 									reg_wena <= `WriteDisable;
 									alucOut <= `EXE_JR_OP;
 		  							alucSelOut <= `EXE_RES_JUMP_BRANCH;
@@ -309,7 +335,7 @@ module id(
 									nxtInstrInDelaySlotsOut <= `InDelaySlot;
 									instvalid <= `InstValid;	
 								end
-								`EXE_JALR: begin
+								`EXE_JALR: begin  // 需要保存返回地址，返回地址为当前转移指令后面第2条指令的地址
 									reg_wena <= `WriteEnable;
 									alucOut <= `EXE_JALR_OP;
 		  							alucSelOut <= `EXE_RES_JUMP_BRANCH;
@@ -330,6 +356,7 @@ module id(
 						end
 					endcase	
 					case (func)
+						// 异常指令（6）
 						`EXE_TEQ: begin
 							reg_wena <= `WriteDisable;
 							alucOut <= `EXE_TEQ_OP;
@@ -385,21 +412,22 @@ module id(
 							op1_rena <= 1'b0;
 							op2_rena <= 1'b0;
 							instvalid <= `InstValid;
-							isSyscall<= `True_v;
+							isSyscall<= `True_v;  // 【特殊】
 						end							 																					
 						default: begin
 						end	
 					endcase									
-				end									  
+				end
+				// I类型指令（4）
 		  		`EXE_ORI: begin
-		  			reg_wena <= `WriteEnable;
-					alucOut <= `EXE_OR_OP;
-		  			alucSelOut <= `EXE_RES_LOGIC;
-					op1_rena <= 1'b1;
-					op2_rena <= 1'b0;	  	
-					imm <= {16'h0, instr[15:0]};
-					wd_out <= rt;
-					instvalid <= `InstValid;	
+		  			reg_wena <= `WriteEnable;		// ori指令需要将结果写入目的寄存器
+					alucOut <= `EXE_OR_OP;			// 运算子类型为逻辑“或”运算
+		  			alucSelOut <= `EXE_RES_LOGIC;	// 运算类型为逻辑运算
+					op1_rena <= 1'b1;				// 需要通过 Regfile的读端口1读取寄存器
+					op2_rena <= 1'b0;	  			// 不需要通过 Regfile的读端口2读取寄存器
+					imm <= {16'h0, instr[15:0]};	// 立即数为指令的低16位
+					wd_out <= rt;					// 目的寄存器地址为指令的rt字段
+					instvalid <= `InstValid;		// 指令有效
 		  		end
 		  		`EXE_ANDI: begin
 		  			reg_wena <= `WriteEnable; 
@@ -421,7 +449,7 @@ module id(
 					wd_out <= rt;		  	
 					instvalid <= `InstValid;	
 				end	 		
-		  		`EXE_LUI: begin
+		  		`EXE_LUI: begin  // 转成ori指令
 		  			reg_wena <= `WriteEnable;
 					alucOut <= `EXE_OR_OP;
 		  			alucSelOut <= `EXE_RES_LOGIC;
@@ -430,7 +458,8 @@ module id(
 					imm <= {instr[15:0], 16'h0};
 					wd_out <= rt;		  	
 					instvalid <= `InstValid;	
-				end			
+				end
+				// 简单算术操作指令（2）	
 				`EXE_SLTI: begin
 		  			reg_wena <= `WriteEnable;
 					alucOut <= `EXE_SLT_OP;
@@ -458,12 +487,14 @@ module id(
 					op1_rena <= 1'b0;
 					op2_rena <= 1'b0;	  	  	
 					instvalid <= `InstValid;	
-				end						
+				end
+				// 简单算术操作指令（2）				
 				`EXE_ADDI: begin
 		  			reg_wena <= `WriteEnable;
 					alucOut <= `EXE_ADDI_OP;
 		  			alucSelOut <= `EXE_RES_ARITHMETIC;
-					op1_rena <= 1'b1;	op2_rena <= 1'b0;	  	
+					op1_rena <= 1'b1;
+					op2_rena <= 1'b0;	  	
 					imm <= {{16{instr[15]}}, instr[15:0]};
 					wd_out <= rt;		  	
 					instvalid <= `InstValid;	
@@ -478,6 +509,7 @@ module id(
 					wd_out <= rt;
 					instvalid <= `InstValid;
 				end
+				// 跳转指令（6）
 				`EXE_J: begin
 		  			reg_wena <= `WriteDisable;
 					alucOut <= `EXE_J_OP;
@@ -555,6 +587,7 @@ module id(
 						nxtInstrInDelaySlotsOut <= `InDelaySlot;		  	
 					end
 				end
+				// 加载存储指令（13）LL需特殊处理
 				`EXE_LB: begin
 					reg_wena <= `WriteEnable;
 					alucOut <= `EXE_LB_OP;
@@ -614,7 +647,7 @@ module id(
 					alucOut <= `EXE_LWL_OP;
 					alucSelOut <= `EXE_RES_LOAD_STORE;
 					op1_rena <= 1'b1;
-					op2_rena <= 1'b1;	  	
+					op2_rena <= 1'b1;  // 只是部分修改目的寄存器，所以还需读出目的寄存器
 					wd_out <= rt;
 					instvalid <= `InstValid;	
 				end
@@ -626,7 +659,7 @@ module id(
 					op2_rena <= 1'b1;	  	
 					wd_out <= rt;
 					instvalid <= `InstValid;	
-				end			
+				end	
 				`EXE_SB: begin
 					reg_wena <= `WriteDisable;
 					alucOut <= `EXE_SB_OP;
@@ -651,7 +684,7 @@ module id(
 					instvalid <= `InstValid;	
 					alucSelOut <= `EXE_RES_LOAD_STORE; 
 				end
-				`EXE_SWL: begin
+				`EXE_SWL: begin  // 非对齐存储指令，向左存储
 					reg_wena <= `WriteDisable;
 					alucOut <= `EXE_SWL_OP;
 					op1_rena <= 1'b1;
@@ -679,6 +712,7 @@ module id(
 				end								
 				`EXE_REGIMM_INST: begin
 					case (rt)
+						// 跳转指令（4）
 						`EXE_BGEZ: begin
 							reg_wena <= `WriteDisable;
 							alucOut <= `EXE_BGEZ_OP;
@@ -692,7 +726,7 @@ module id(
 								nxtInstrInDelaySlotsOut <= `InDelaySlot;		  	
 							end
 						end
-						`EXE_BGEZAL: begin
+						`EXE_BGEZAL: begin  // 返回地址保存到寄存器 $31
 							reg_wena <= `WriteEnable;
 							alucOut <= `EXE_BGEZAL_OP;
 		  					alucSelOut <= `EXE_RES_JUMP_BRANCH;
@@ -735,6 +769,7 @@ module id(
 								nxtInstrInDelaySlotsOut <= `InDelaySlot;
 							end
 						end
+						// 异常指令（6）
 						`EXE_TEQI: begin
 							reg_wena <= `WriteDisable;
 							alucOut <= `EXE_TEQI_OP;
@@ -795,6 +830,7 @@ module id(
 				end								
 				`EXE_SPECIAL2_INST: begin
 					case (func)
+						// 简单算术操作指令-R（3）
 						`EXE_CLZ: begin
 							reg_wena <= `WriteEnable;
 							alucOut <= `EXE_CLZ_OP;
@@ -819,6 +855,7 @@ module id(
 							op2_rena <= 1'b1;	
 		  					instvalid <= `InstValid;	  			
 						end
+						// 乘累加、乘累减指令（4）
 						`EXE_MADD: begin
 							reg_wena <= `WriteDisable;
 							alucOut <= `EXE_MADD_OP;
@@ -858,8 +895,9 @@ module id(
 				default: begin
 				end
 		  	endcase
-
-		  if (instr[31:21] == 11'b00000000000) begin
+		// R类型指令（3）
+		// 这三条比较特殊，要求 21~25bit 为0（-->判断指令 21~31bit 是否全为0），而且 6~10bit 为移位位数。
+		if (instr[31:21] == 11'b00000000000) begin
 		  	if (func == `EXE_SLL) begin
 		  		reg_wena <= `WriteEnable;
 				alucOut <= `EXE_SLL_OP;
@@ -869,28 +907,28 @@ module id(
 				imm[4:0] <= shamt;
 				wd_out <= rd;
 				instvalid <= `InstValid;	
-				end
-				else if (func == `EXE_SRL) begin
-					reg_wena <= `WriteEnable;
-					alucOut <= `EXE_SRL_OP;
-					alucSelOut <= `EXE_RES_SHIFT;
-					op1_rena <= 1'b0;
-					op2_rena <= 1'b1;	  	
-					imm[4:0] <= shamt;
-					wd_out <= rd;
-					instvalid <= `InstValid;	
-				end
-				else if (func == `EXE_SRA) begin
-					reg_wena <= `WriteEnable;
-					alucOut <= `EXE_SRA_OP;
-					alucSelOut <= `EXE_RES_SHIFT;
-					op1_rena <= 1'b0;
-					op2_rena <= 1'b1;	  	
-					imm[4:0] <= shamt;
-					wd_out <= rd;
-					instvalid <= `InstValid;	
-				end
-			end		  
+			end
+			else if (func == `EXE_SRL) begin
+				reg_wena <= `WriteEnable;
+				alucOut <= `EXE_SRL_OP;
+				alucSelOut <= `EXE_RES_SHIFT;
+				op1_rena <= 1'b0;
+				op2_rena <= 1'b1;	  	
+				imm[4:0] <= shamt;
+				wd_out <= rd;
+				instvalid <= `InstValid;	
+			end
+			else if (func == `EXE_SRA) begin
+				reg_wena <= `WriteEnable;
+				alucOut <= `EXE_SRA_OP;
+				alucSelOut <= `EXE_RES_SHIFT;
+				op1_rena <= 1'b0;
+				op2_rena <= 1'b1;	  	
+				imm[4:0] <= shamt;
+				wd_out <= rd;
+				instvalid <= `InstValid;	
+			end
+		end		  
 
      	if (instr == `EXE_ERET) begin
 			reg_wena <= `WriteDisable;
@@ -900,6 +938,7 @@ module id(
 			op2_rena <= 1'b0;
 			instvalid <= `InstValid; isEret<= `True_v;				
 		end
+		// mfc0
 		else if (instr[31:21] == 11'b01000000000 && instr[10:0] == 11'b00000000000) begin
 			alucOut <= `EXE_MFC0_OP;
 			alucSelOut <= `EXE_RES_MOVE;
@@ -909,6 +948,7 @@ module id(
 			op1_rena <= 1'b0;
 			op2_rena <= 1'b0;		
 		end
+		// mtc0
 		else if (instr[31:21] == 11'b01000000100 && instr[10:0] == 11'b00000000000) begin
 			alucOut <= `EXE_MTC0_OP;
 			alucSelOut <= `EXE_RES_NOP;
@@ -921,25 +961,29 @@ module id(
 		end
 	end
 	
-
+	/************* 确定进行运算的源操作数1 *************/
 	always @ (*) begin
 		stallLoad1 <= `NoStop;	
 		if (rst == `RstEnable)
-			op1_out <= `ZeroWord;	
+			op1_out <= `ZeroWord;
+		// load相关
 		else if (preInstrIsLoad == 1'b1 && exe_wd_in == op1AddrOut && op1_rena == 1'b1)
 			stallLoad1 <= `Stop;
+		// 如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行阶段的结果exe_data_in作为op1_out的值。
 		else if((op1_rena == 1'b1) && (exe_waddr_in == 1'b1) && (exe_wd_in == op1AddrOut))
 			op1_out <= exe_data_in;
+		// 如果Regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把执行阶段的结果exe_data_in作为op1_out的值。
 		else if((op1_rena == 1'b1) && (mem_waddr_in == 1'b1) && (mem_wd_in == op1AddrOut))
 			op1_out <= mem_data_in; 			
-		else if(op1_rena == 1'b1)
+		else if(op1_rena == 1'b1)	// 寄存器
 			op1_out <= op1_in;
-		else if(op1_rena == 1'b0)
+		else if(op1_rena == 1'b0)	// 立即数
 	  		op1_out <= imm;
 		else
 	    	op1_out <= `ZeroWord;
 	end
 	
+	/************* 确定进行运算的源操作数1 *************/
 	always @ (*) begin
 		stallLoad2 <= `NoStop;
 		if (rst == `RstEnable)
