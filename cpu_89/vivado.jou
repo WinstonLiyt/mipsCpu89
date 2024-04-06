@@ -2,180 +2,20 @@
 # Vivado v2016.2 (64-bit)
 # SW Build 1577090 on Thu Jun  2 16:32:40 MDT 2016
 # IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
-# Start of session at: Tue Apr 02 09:05:22 2024
-# Process ID: 29088
+# Start of session at: Sat Apr 06 16:14:50 2024
+# Process ID: 51736
 # Current directory: C:/Users/Liyt/Desktop/cpu_89
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent37224 C:\Users\Liyt\Desktop\cpu_89\cpu_89.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent50364 C:\Users\Liyt\Desktop\cpu_89\cpu_89.xpr
 # Log file: C:/Users/Liyt/Desktop/cpu_89/vivado.log
 # Journal file: C:/Users/Liyt/Desktop/cpu_89\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/Liyt/Desktop/cpu_89/cpu_89.xpr
 update_compile_order -fileset sources_1
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-launch_simulation
-launch_simulation
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-launch_simulation
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close [ open C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/aluc.v w ]
-add_files C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/aluc.v
-update_compile_order -fileset sources_1
-update_compile_order -fileset sources_1
-update_compile_order -fileset sources_1
-remove_files C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/aluc.v
-file delete -force C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/aluc.v
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-synth_design -rtl -name rtl_1
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-synth_design -rtl -name rtl_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-close_sim
-launch_simulation
-source docpu_top_tb.tcl
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-open_run synth_1 -name synth_1
-set_property top docpu_board [get_filesets sim_1]
+set_property top docpu_top_tb [get_filesets sim_1]
 set_property top_lib xil_defaultlib [get_filesets sim_1]
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-close_design
-open_run synth_1 -name synth_1
-# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
-set_property source_mgmt_mode None [current_project]
-set_property top docpu_board [current_fileset]
-# Re-enabling previously disabled source management mode.
-set_property source_mgmt_mode All [current_project]
-update_compile_order -fileset sources_1
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-close_design
-open_run synth_1 -name synth_1
-set_property IOSTANDARD LVCMOS33 [get_ports [list {choose[1]} {choose[0]}]]
-file mkdir C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new
-close [ open C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc w ]
-add_files -fileset constrs_1 C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc
-set_property target_constrs_file C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc [current_fileset -constrset]
-save_constraints -force
+launch_simulation
+source docpu_top_tb.tcl
 reset_run synth_1
 launch_runs impl_1 -to_step write_bitstream -jobs 2
 wait_on_run impl_1
@@ -192,28 +32,3 @@ set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
 set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
 program_hw_devices [lindex [get_hw_devices] 0]
 refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
-set_property PROGRAM.FILE {C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/impl_1/docpu_board.bit} [lindex [get_hw_devices] 0]
-program_hw_devices [lindex [get_hw_devices] 0]
-refresh_hw_device [lindex [get_hw_devices] 0]
-close_sim

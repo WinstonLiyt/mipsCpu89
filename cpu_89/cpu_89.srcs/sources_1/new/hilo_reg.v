@@ -22,7 +22,7 @@ module hilo_reg(
 			LOOut <= `ZeroWord;
 		end
 		// 就是通过we判断是否写入
-		else if((wena == `WriteEnable)) begin
+		else if ((wena == `WriteEnable)) begin
 			HIOut <= regHI;
 			LOOut <= regLO;
 		end

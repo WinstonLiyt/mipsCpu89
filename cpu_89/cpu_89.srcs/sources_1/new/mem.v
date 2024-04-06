@@ -256,11 +256,11 @@ module mem(
 					mem_ce_out <= `ChipEnable;
 					case (memAddrIn[1:0])
 						2'b00:
-							wdata_out <= {op2[31:8],memDataIn[31:24]};
+							wdata_out <= {op2[31:8], memDataIn[31:24]};
 						2'b01:
-							wdata_out <= {op2[31:16],memDataIn[31:16]};
+							wdata_out <= {op2[31:16], memDataIn[31:16]};
 						2'b10:
-							wdata_out <= {op2[31:24],memDataIn[31:8]};
+							wdata_out <= {op2[31:24], memDataIn[31:8]};
 						2'b11:
 							wdata_out <= memDataIn;	
 						default: begin
@@ -280,7 +280,7 @@ module mem(
 				`EXE_SB_OP:	begin
 					mem_addr_out <= memAddrIn;
 					mem_wena <= `WriteEnable;
-					memDataOut <= {op2[7:0],op2[7:0],op2[7:0],op2[7:0]};
+					memDataOut <= {op2[7:0], op2[7:0], op2[7:0], op2[7:0]};
 					mem_ce_out <= `ChipEnable;
 					case (memAddrIn[1:0])
 						2'b00:	begin
@@ -335,15 +335,15 @@ module mem(
 						end
 						2'b01:	begin
 							memSelOut <= 4'b0111;
-							memDataOut <= {zero32[7:0],op2[31:8]};
+							memDataOut <= {zero32[7:0], op2[31:8]};
 						end
 						2'b10:	begin
 							memSelOut <= 4'b0011;
-							memDataOut <= {zero32[15:0],op2[31:16]};
+							memDataOut <= {zero32[15:0], op2[31:16]};
 						end
 						2'b11:	begin
 							memSelOut <= 4'b0001;	
-							memDataOut <= {zero32[23:0],op2[31:24]};
+							memDataOut <= {zero32[23:0], op2[31:24]};
 						end
 						default:	begin
 							memSelOut <= 4'b0000;
@@ -357,15 +357,15 @@ module mem(
 					case (memAddrIn[1:0])
 						2'b00:	begin						  
 							memSelOut <= 4'b1000;
-							memDataOut <= {op2[7:0],zero32[23:0]};
+							memDataOut <= {op2[7:0], zero32[23:0]};
 						end
 						2'b01:	begin
 							memSelOut <= 4'b1100;
-							memDataOut <= {op2[15:0],zero32[15:0]};
+							memDataOut <= {op2[15:0], zero32[15:0]};
 						end
 						2'b10:	begin
 							memSelOut <= 4'b1110;
-							memDataOut <= {op2[23:0],zero32[7:0]};
+							memDataOut <= {op2[23:0], zero32[7:0]};
 						end
 						2'b11:	begin
 							memSelOut <= 4'b1111;	

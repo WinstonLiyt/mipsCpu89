@@ -970,14 +970,14 @@ module id(
 		else if (preInstrIsLoad == 1'b1 && exe_wd_in == op1AddrOut && op1_rena == 1'b1)
 			stallLoad1 <= `Stop;
 		// 如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行阶段的结果exe_data_in作为op1_out的值。
-		else if((op1_rena == 1'b1) && (exe_waddr_in == 1'b1) && (exe_wd_in == op1AddrOut))
+		else if ((op1_rena == 1'b1) && (exe_waddr_in == 1'b1) && (exe_wd_in == op1AddrOut))
 			op1_out <= exe_data_in;
 		// 如果Regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把执行阶段的结果exe_data_in作为op1_out的值。
-		else if((op1_rena == 1'b1) && (mem_waddr_in == 1'b1) && (mem_wd_in == op1AddrOut))
+		else if ((op1_rena == 1'b1) && (mem_waddr_in == 1'b1) && (mem_wd_in == op1AddrOut))
 			op1_out <= mem_data_in; 			
-		else if(op1_rena == 1'b1)	// 寄存器
+		else if (op1_rena == 1'b1)	// 寄存器
 			op1_out <= op1_in;
-		else if(op1_rena == 1'b0)	// 立即数
+		else if (op1_rena == 1'b0)	// 立即数
 	  		op1_out <= imm;
 		else
 	    	op1_out <= `ZeroWord;
@@ -990,13 +990,13 @@ module id(
 			op2_out <= `ZeroWord;
 		else if (preInstrIsLoad == 1'b1 && exe_wd_in == op2AddrOut && op2_rena == 1'b1)
 			stallLoad2 <= `Stop;			
-		else if((op2_rena == 1'b1) && (exe_waddr_in == 1'b1) && (exe_wd_in == op2AddrOut))
+		else if ((op2_rena == 1'b1) && (exe_waddr_in == 1'b1) && (exe_wd_in == op2AddrOut))
 			op2_out <= exe_data_in;
-		else if((op2_rena == 1'b1) && (mem_waddr_in == 1'b1) && (mem_wd_in == op2AddrOut))
+		else if ((op2_rena == 1'b1) && (mem_waddr_in == 1'b1) && (mem_wd_in == op2AddrOut))
 			op2_out <= mem_data_in;
 		else if (op2_rena == 1'b1)
 	  		op2_out <= op2_in;
-		else if(op2_rena == 1'b0)
+		else if (op2_rena == 1'b0)
 	  		op2_out <= imm;
 	  	else
 	    	op2_out <= `ZeroWord;

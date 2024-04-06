@@ -1,7 +1,3 @@
-//@func   : 
-//@time   : 
-//@author :
-
 `include "defines.vh"
 `timescale 1ns / 1ps
 
@@ -12,7 +8,7 @@ module docpu_top(
     output [31:0]   inst,
     output [31:0]   result
 );
-    //
+
     wire rom_ce;
     wire mem_we_i;
     wire[`RegBus] memAddrIn;

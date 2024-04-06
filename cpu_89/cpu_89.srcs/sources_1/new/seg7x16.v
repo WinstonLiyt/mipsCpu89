@@ -1,7 +1,3 @@
-//@func   : show the details in the board with the LED
-//@time   : 
-//@author :
-
 `include "defines.vh"
 `timescale 1ns / 1ps
 

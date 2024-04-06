@@ -14,21 +14,21 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 37444 
+INFO: Helper process launched with PID 55108 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 306.977 ; gain = 99.922
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 306.168 ; gain = 99.090
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'docpu_board' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_board.v:8]
+INFO: [Synth 8-638] synthesizing module 'docpu_board' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_board.v:4]
 INFO: [Synth 8-638] synthesizing module 'divider' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/divider.v:4]
 	Parameter num bound to: 4 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'divider' (1#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/divider.v:4]
 INFO: [Synth 8-638] synthesizing module 'divider__parameterized0' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/divider.v:4]
 	Parameter num bound to: 100000 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'divider__parameterized0' (1#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/divider.v:4]
-INFO: [Synth 8-638] synthesizing module 'seg7x16' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:8]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:62]
-INFO: [Synth 8-256] done synthesizing module 'seg7x16' (2#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:8]
-INFO: [Synth 8-638] synthesizing module 'docpu_top' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:8]
+INFO: [Synth 8-638] synthesizing module 'seg7x16' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:4]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:58]
+INFO: [Synth 8-256] done synthesizing module 'seg7x16' (2#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/seg7x16.v:4]
+INFO: [Synth 8-638] synthesizing module 'docpu_top' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:4]
 INFO: [Synth 8-638] synthesizing module 'docpu' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu.v:8]
 INFO: [Synth 8-638] synthesizing module 'pc_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/pc_reg.v:8]
 INFO: [Synth 8-256] done synthesizing module 'pc_reg' (3#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/pc_reg.v:8]
@@ -63,21 +63,21 @@ INFO: [Synth 8-638] synthesizing module 'ctrl' [C:/Users/Liyt/Desktop/cpu_89/cpu
 INFO: [Synth 8-256] done synthesizing module 'ctrl' (13#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ctrl.v:9]
 INFO: [Synth 8-638] synthesizing module 'div' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/div.v:9]
 INFO: [Synth 8-256] done synthesizing module 'div' (14#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/div.v:9]
-INFO: [Synth 8-638] synthesizing module 'LLbit_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/LLbit_reg.v:9]
-INFO: [Synth 8-256] done synthesizing module 'LLbit_reg' (15#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/LLbit_reg.v:9]
+INFO: [Synth 8-638] synthesizing module 'LLbit_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/LLbit_reg.v:8]
+INFO: [Synth 8-256] done synthesizing module 'LLbit_reg' (15#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/LLbit_reg.v:8]
 INFO: [Synth 8-638] synthesizing module 'cp0_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/cp0_reg.v:8]
 INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/cp0_reg.v:57]
 INFO: [Synth 8-256] done synthesizing module 'cp0_reg' (16#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/cp0_reg.v:8]
 INFO: [Synth 8-256] done synthesizing module 'docpu' (17#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu.v:8]
-WARNING: [Synth 8-689] width (1) of port connection 'ram_ce_o' does not match port width (4) of module 'docpu' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:43]
+WARNING: [Synth 8-689] width (1) of port connection 'ram_ce_o' does not match port width (4) of module 'docpu' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:39]
 INFO: [Synth 8-638] synthesizing module 'imem' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/imem.v:4]
-INFO: [Synth 8-638] synthesizing module 'dist_mem_gen_0' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-37588-Liyt/realtime/dist_mem_gen_0_stub.v:6]
-INFO: [Synth 8-256] done synthesizing module 'dist_mem_gen_0' (18#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-37588-Liyt/realtime/dist_mem_gen_0_stub.v:6]
+INFO: [Synth 8-638] synthesizing module 'dist_mem_gen_0' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-35552-Liyt/realtime/dist_mem_gen_0_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'dist_mem_gen_0' (18#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-35552-Liyt/realtime/dist_mem_gen_0_stub.v:6]
 INFO: [Synth 8-256] done synthesizing module 'imem' (19#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/imem.v:4]
 INFO: [Synth 8-638] synthesizing module 'dmem' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/dmem.v:4]
 INFO: [Synth 8-256] done synthesizing module 'dmem' (20#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/dmem.v:4]
-INFO: [Synth 8-256] done synthesizing module 'docpu_top' (21#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:8]
-INFO: [Synth 8-256] done synthesizing module 'docpu_board' (22#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_board.v:8]
+INFO: [Synth 8-256] done synthesizing module 'docpu_top' (21#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_top.v:4]
+INFO: [Synth 8-256] done synthesizing module 'docpu_board' (22#1) [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/docpu_board.v:4]
 WARNING: [Synth 8-3331] design dmem has unconnected port addr_in[31]
 WARNING: [Synth 8-3331] design dmem has unconnected port addr_in[30]
 WARNING: [Synth 8-3331] design dmem has unconnected port addr_in[29]
@@ -176,7 +176,7 @@ WARNING: [Synth 8-3331] design pc_reg has unconnected port stall[3]
 WARNING: [Synth 8-3331] design pc_reg has unconnected port stall[2]
 WARNING: [Synth 8-3331] design pc_reg has unconnected port stall[1]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 523.234 ; gain = 316.180
+Finished RTL Elaboration : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 523.391 ; gain = 316.313
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -186,7 +186,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 523.234 ; gain = 316.180
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 523.391 ; gain = 316.313
 ---------------------------------------------------------------------------------
 WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'dist_mem_gen_0' instantiated as 'docpu_top/imem/your_instance_name' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/imem.v:9]
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
@@ -194,8 +194,8 @@ INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-37588-Liyt/dcp/dist_mem_gen_0_in_context.xdc] for cell 'docpu_top/imem/your_instance_name'
-Finished Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-37588-Liyt/dcp/dist_mem_gen_0_in_context.xdc] for cell 'docpu_top/imem/your_instance_name'
+Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-35552-Liyt/dcp/dist_mem_gen_0_in_context.xdc] for cell 'docpu_top/imem/your_instance_name'
+Finished Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.runs/synth_1/.Xil/Vivado-35552-Liyt/dcp/dist_mem_gen_0_in_context.xdc] for cell 'docpu_top/imem/your_instance_name'
 Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc]
 Finished Parsing XDC File [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/constrs_1/new/Cpu89.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/docpu_board_propImpl.xdc].
@@ -205,22 +205,22 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 813.219 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 813.391 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Constraint Validation : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5545] ROM "O_CLK" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "i" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -350,8 +350,8 @@ INFO: [Synth 8-5546] ROM "data_mem3_reg[74]" won't be mapped to RAM because it i
 INFO: [Synth 8-5546] ROM "data_mem3_reg[75]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "data_mem3_reg[76]" won't be mapped to RAM because it is too sparse
 INFO: [Common 17-14] Message 'Synth 8-5546' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-WARNING: [Synth 8-327] inferring latch for variable 'op1_out_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/id.v:969]
-WARNING: [Synth 8-327] inferring latch for variable 'op2_out_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/id.v:991]
+WARNING: [Synth 8-327] inferring latch for variable 'op1_out_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/id.v:968]
+WARNING: [Synth 8-327] inferring latch for variable 'op2_out_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/id.v:990]
 WARNING: [Synth 8-327] inferring latch for variable 'cp0_reg_addr_out_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:363]
 WARNING: [Synth 8-327] inferring latch for variable 'HILO_tmp1_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ex.v:307]
 WARNING: [Synth 8-327] inferring latch for variable 'cp0_cause_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/mem.v:419]
@@ -359,7 +359,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'memDataOut_reg' [C:/Users/L
 WARNING: [Synth 8-327] inferring latch for variable 'pcNew_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/ctrl.v:26]
 WARNING: [Synth 8-327] inferring latch for variable 'dataOut_reg' [C:/Users/Liyt/Desktop/cpu_89/cpu_89.srcs/sources_1/new/cp0_reg.v:101]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:33 ; elapsed = 00:00:39 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -710,7 +710,7 @@ BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 813.219 ; gain = 606.164
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:34 ; elapsed = 00:00:38 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
@@ -747,9 +747,9 @@ INFO: [Synth 8-5545] ROM "div_cpu/O_CLK" won't be mapped to RAM because address 
 INFO: [Synth 8-5545] ROM "div_seg/i" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "div_seg/O_CLK" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:41 ; elapsed = 00:00:48 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:41 ; elapsed = 00:00:46 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:41 ; elapsed = 00:00:48 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Parallel Reinference  : Time (s): cpu = 00:00:41 ; elapsed = 00:00:46 . Memory (MB): peak = 813.391 ; gain = 606.313
 
 Report RTL Partitions: 
 +------+-----------------+------------+----------+
@@ -984,9 +984,9 @@ WARNING: [Synth 8-3332] Sequential element (configOut_reg[16]) is unused and wil
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (i_3/\seg7/o_seg_r_reg[7] )
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:01:02 ; elapsed = 00:01:08 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Area Optimization : Time (s): cpu = 00:01:01 ; elapsed = 00:01:06 . Memory (MB): peak = 813.391 ; gain = 606.313
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:01:02 ; elapsed = 00:01:08 . Memory (MB): peak = 813.219 ; gain = 606.164
+Finished Parallel Area Optimization  : Time (s): cpu = 00:01:01 ; elapsed = 00:01:06 . Memory (MB): peak = 813.391 ; gain = 606.313
 
 Report RTL Partitions: 
 +------+-----------------+------------+----------+
@@ -1004,10 +1004,10 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:11 ; elapsed = 00:01:18 . Memory (MB): peak = 848.664 ; gain = 641.609
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:09 ; elapsed = 00:01:15 . Memory (MB): peak = 846.824 ; gain = 639.746
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:13 ; elapsed = 00:01:20 . Memory (MB): peak = 884.770 ; gain = 677.715
+Finished Timing Optimization : Time (s): cpu = 00:01:11 ; elapsed = 00:01:16 . Memory (MB): peak = 883.039 ; gain = 675.961
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1023,16 +1023,16 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:21 ; elapsed = 00:01:28 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Technology Mapping : Time (s): cpu = 00:01:19 ; elapsed = 00:01:24 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
-Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:01:21 ; elapsed = 00:01:28 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:01:19 ; elapsed = 00:01:24 . Memory (MB): peak = 940.184 ; gain = 733.105
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:01:21 ; elapsed = 00:01:28 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:01:19 ; elapsed = 00:01:24 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -1050,7 +1050,7 @@ INFO: [Synth 8-5365] Flop docpu_top/docpu/pc_reg0/ce_reg is being inverted and r
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:26 ; elapsed = 00:01:33 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished IO Insertion : Time (s): cpu = 00:01:23 ; elapsed = 00:01:29 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1063,7 +1063,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:26 ; elapsed = 00:01:33 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:23 ; elapsed = 00:01:29 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1075,25 +1075,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:29 ; elapsed = 00:01:36 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:26 ; elapsed = 00:01:31 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:29 ; elapsed = 00:01:36 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:26 ; elapsed = 00:01:32 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:30 ; elapsed = 00:01:37 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:27 ; elapsed = 00:01:33 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:30 ; elapsed = 00:01:37 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:27 ; elapsed = 00:01:33 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1161,11 +1161,11 @@ Report Instance Areas:
 |22    |  seg7           |seg7x16                 |   150|
 +------+-----------------+------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:30 ; elapsed = 00:01:37 . Memory (MB): peak = 941.152 ; gain = 734.098
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:27 ; elapsed = 00:01:33 . Memory (MB): peak = 940.184 ; gain = 733.105
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 216 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:11 ; elapsed = 00:01:28 . Memory (MB): peak = 941.152 ; gain = 415.160
-Synthesis Optimization Complete : Time (s): cpu = 00:01:30 ; elapsed = 00:01:37 . Memory (MB): peak = 941.152 ; gain = 734.098
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:08 ; elapsed = 00:01:22 . Memory (MB): peak = 940.184 ; gain = 414.035
+Synthesis Optimization Complete : Time (s): cpu = 00:01:28 ; elapsed = 00:01:33 . Memory (MB): peak = 940.184 ; gain = 733.105
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 700 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1180,6 +1180,6 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 INFO: [Common 17-83] Releasing license: Synthesis
 310 Infos, 208 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:33 ; elapsed = 00:01:39 . Memory (MB): peak = 941.152 ; gain = 709.063
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.147 . Memory (MB): peak = 941.152 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Thu Apr 04 14:20:34 2024...
+synth_design: Time (s): cpu = 00:01:30 ; elapsed = 00:01:34 . Memory (MB): peak = 940.184 ; gain = 708.000
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.130 . Memory (MB): peak = 940.184 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sat Apr 06 19:35:07 2024...
