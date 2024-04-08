@@ -39,7 +39,7 @@ module docpu_top_tb;
             pc1 <= pc; pc2 <= pc1; pc3 <= pc2; pc4 <= pc3;
             inst1 <= inst; inst2 <= inst1; inst3 <= inst2; inst4 <= inst3;
         end
-        else if(ok) begin
+        else if (ok) begin
             $fdisplay(file_output, "pc: %h",pc4);
             $fdisplay(file_output, "instr: %h",inst4);
             $fdisplay(file_output, "regfile0: %h",docpu_top_tb.uut.docpu.regfile1.array_reg[0]);

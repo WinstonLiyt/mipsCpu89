@@ -2,3 +2,6 @@ Running: xsim.dir/docpu_top_tb_behav/xsimk.exe -simmode gui -wdb docpu_top_tb_be
 Design successfully loaded
 Design Loading Memory Usage: 9244 KB (Peak: 9244 KB)
 Design Loading CPU Usage: 61 ms
+Simulation completed
+Simulation Memory Usage: 14164 KB (Peak: 14164 KB)
+Simulation CPU Usage: 1359 ms
